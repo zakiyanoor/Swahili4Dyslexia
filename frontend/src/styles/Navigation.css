@@ -7,10 +7,11 @@
     background-color: #fff;
     border-bottom: 1px solid #eee;
     font-family: "Segoe UI", sans-serif;
+    font-size: calc(1rem * var(--font-size-scale));
   }
   
   .logo {
-    font-size: 1.5rem;
+    font-size: calc(1.5rem * var(--font-size-scale));
     font-weight: bold;
     color: #111;
   }
@@ -43,7 +44,7 @@
   }
   
   .help-icon {
-    font-size: 1.25rem;
+    font-size: calc(1.25rem * var(--font-size-scale));
     font-weight: bold;
     background: #f2f2f2;
     color: #333;
