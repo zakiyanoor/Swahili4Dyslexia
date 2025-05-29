@@ -1,0 +1,64 @@
+/* StartLearning.css */
+
+.start-learning-container {
+  padding: 2rem;
+  background-color: #f6fdf7; /* subtle light green background */
+  min-height: 100vh;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.intro-text {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 2rem;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.learning-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 220px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.learning-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  width: 100%;
+  height: 130px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+}
+
+.learning-card h2 {
+  font-size: 1.1rem;
+  color: #1c3f2c; /* dark green-black */
+  margin: 0.5rem 0;
+}
+
+.start-button {
+  background-color: #1c3f2c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.start-button:hover {
+  background-color: #145029;
+}
+

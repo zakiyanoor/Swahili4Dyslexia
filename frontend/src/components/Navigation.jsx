@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import '../styles/Navigation.css';
 import Home from "../pages/Home";
+import StartLearning from "../pages/StartLearning";
 
 function Navigation(){
     return(
