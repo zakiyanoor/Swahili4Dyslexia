@@ -9,6 +9,7 @@ import { FontSizeProvider } from "./context/FontSizeContext";
 
 function App() {
   return (
+
     <FontSizeProvider>
       <>
         <Navigation />
@@ -20,6 +21,7 @@ function App() {
         </Routes>
       </>
     </FontSizeProvider>
+
   );
 }
 
