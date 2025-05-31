@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import "../styles/Alphabet.css";
 
@@ -5,16 +7,24 @@ function Alphabet() {
   const [letters, setLetters] = useState([]);
 
   useEffect(() => {
-    function getVowels(category){
-      fetch(`http://127.0.0.1:5000/api/lessons/${category}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        setLetters(data)})
-        
-      .catch((err) => console.error("Error fetching letters:", err));
+  
+    function fetchCategory(category) {
+      return fetch(`http://127.0.0.1:5000/api/lessons/${category}`)
+        .then((res) => res.json())
+        .catch((err) => {
+          console.error(`Error fetching ${category}:`, err);
+          return []; 
+        });
     }
-    getVowels("Vowels")
+
+    Promise.all([fetchCategory("Vowels"), fetchCategory("Alphabets")])
+      .then(([vowels, alphabets]) => {
+        const combined = [...vowels, ...alphabets].sort((a, b) =>
+  a.content.localeCompare(b.content, 'en', { sensitivity: 'base' })
+);
+
+        setLetters(combined);
+      });
   }, []);
 
   return (
@@ -36,3 +46,4 @@ function Alphabet() {
 }
 
 export default Alphabet;
+
