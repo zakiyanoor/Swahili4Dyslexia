@@ -3,6 +3,7 @@ import '../styles/Home.css';
 import Navigation from '../components/Navigation';
 import HeroImage from '../assets/hero-image.jpeg';
 import StartLearning from "./StartLearning";
+
 import { Link } from 'react-router-dom';
 
 function Home(){

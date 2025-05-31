@@ -1,0 +1,42 @@
+.alphabet-page {
+  background-color: #f6fdf6;
+  color: #000;
+  font-family: 'OpenDyslexic', Arial, sans-serif;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #007f3f;
+  margin-bottom: 1rem;
+}
+
+.letters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.letter-card {
+  background-color: #fff;
+  border: 3px solid #007f3f;
+  border-radius: 12px;
+  padding: 1rem;
+  transition: transform 0.2s;
+}
+
+.letter-card:hover {
+  transform: scale(1.05);
+}
+
+.letter-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.syllables {
+  font-weight: bold;
+  color: #007f3f;
+}

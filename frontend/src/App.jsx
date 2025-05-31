@@ -6,6 +6,7 @@ import StartLearning from "./pages/StartLearning";
 import Progress from "./pages/Progress";
 import Settings from "./pages/Settings";
 import { FontSizeProvider } from "./context/FontSizeContext";
+import Alphabet from "./pages/Alphabet";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path="/start-learning" element={<StartLearning />} />
           <Route path="/my-progress" element={<Progress />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/lesson/Alphabet" element={<Alphabet />} />
+
         </Routes>
       </>
     </FontSizeProvider>
