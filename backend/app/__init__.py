@@ -26,5 +26,7 @@ def create_app():
     from app.routes import register_routes
     register_routes(app)
 
+    print("✅ Registered routes:")
+    print(app.url_map)
     return app
 

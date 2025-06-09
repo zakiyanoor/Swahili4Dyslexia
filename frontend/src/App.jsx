@@ -7,6 +7,7 @@ import Progress from "./pages/Progress";
 import Settings from "./pages/Settings";
 import { FontSizeProvider } from "./context/FontSizeContext";
 import Alphabet from "./pages/Alphabet";
+import Word from "./pages/Word";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/my-progress" element={<Progress />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/lesson/Alphabet" element={<Alphabet />} />
+          <Route path="/lesson/words" element={<Word/>}/>
 
         </Routes>
       </>
