@@ -40,15 +40,27 @@ def get_full_alphabet():
 
 
 
+# @learning_bp.route('/lesson/audio/<int:lesson_id>', methods=['GET'])
+# def get_lesson_audio(lesson_id):
+#     lesson = Lesson.query.get_or_404(lesson_id)
+    
+#     tts = gTTS(text=lesson.content.lower(), lang='sw')  
+#     mp3_fp = BytesIO()
+#     tts.write_to_fp(mp3_fp)
+#     mp3_fp.seek(0)
+#     return send_file(mp3_fp, mimetype='audio/mpeg', download_name=f'{lesson.title}.mp3')
 @learning_bp.route('/lesson/audio/<int:lesson_id>', methods=['GET'])
 def get_lesson_audio(lesson_id):
     lesson = Lesson.query.get_or_404(lesson_id)
-    
-    tts = gTTS(text=lesson.content.lower(), lang='sw')  
+    text = lesson.content.lower()
+
+    # Generate audio using gTTS
+    tts = gTTS(text=text, lang='sw')  # Use 'en' if testing in English
     mp3_fp = BytesIO()
     tts.write_to_fp(mp3_fp)
     mp3_fp.seek(0)
-    return send_file(mp3_fp, mimetype='audio/mpeg', download_name=f'{lesson.title}.mp3')
+
+    return send_file(mp3_fp, mimetype='audio/mpeg', download_name=f'{lesson.content}.mp3')
 
 
 @learning_bp.route('/api/debug/categories', methods=['GET'])
@@ -65,6 +77,28 @@ def delete_unwanted_letters():
     deleted = Lesson.query.filter(Lesson.content.in_(unwanted_letters)).delete(synchronize_session=False)
     db.session.commit()
     return jsonify({"message": f"Deleted {deleted} unwanted letters."}), 200
+
+
+@learning_bp.route("/lessons/words/all",methods=["GET"])
+def get_words_grouped():
+    lessons=Lesson.query.filter(~Lesson.title.in_(["Alphabets","Vowels"])).all()
+    grouped={}
+    for lesson in lessons:
+        if lesson.category not in grouped:
+            grouped[lesson.category] =[]
+        grouped[lesson.category].append({
+            "id":lesson.id,
+            "content":lesson.content,
+            "image_url": lesson.image_url,
+            "audio_url": f"lesson/audio/{lesson.id}"
+
+        })
+    return jsonify(grouped)
+
+
+
+
+
 
 
 

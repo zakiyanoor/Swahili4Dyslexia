@@ -7,6 +7,8 @@ import wordsImg from '../assets/words.jpg';
 import sentencesImg from '../assets/sentences.jpg';
 import gamesImg from '../assets/games.jpg';
 import Alphabet from './Alphabet';
+import Word from './Word';
+
 const categories = [
   { title: 'ALPHABETS', image: alphabetImg, path: '/lesson/alphabet' },
   { title: 'WORDS', image: wordsImg, path: '/lesson/words' },
