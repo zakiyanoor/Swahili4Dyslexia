@@ -1,0 +1,152 @@
+.sentences-page {
+    display: flex;
+    min-height: calc(100vh - 60px);
+    background-color: #f6fdf6;
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+}
+
+.sentences-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sentences-sidebar {
+    width: 250px;
+    background-color: #fff;
+    padding: 2rem 1rem;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.sentences-sidebar h2 {
+    color: #007f3f;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #007f3f;
+}
+
+.sentences-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sentences-sidebar li {
+    background: #f0f4f8;
+    color: #007f3f;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    outline: none;
+    display: block;
+}
+
+.sentences-sidebar li:hover,
+.sentences-sidebar li:focus {
+    background: #e0fbe0;
+    color: #005f2f;
+    box-shadow: 0 2px 8px rgba(0,127,63,0.08);
+}
+
+.sentences-sidebar li.active {
+    background: #007f3f;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,127,63,0.12);
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.main-content h2 {
+    color: #007f3f;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.sentences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.sentence-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sentence-card:hover {
+    transform: translateY(-5px);
+}
+
+.sentence-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.english-text {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.swahili-text {
+    font-size: 1.2rem;
+    color: #007f3f;
+    font-weight: 600;
+}
+
+.audio-button {
+    background-color: #007f3f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: flex-end;
+}
+
+.audio-button:hover {
+    background-color: #006633;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #dc3545;
+    font-size: 1.2rem;
+} 

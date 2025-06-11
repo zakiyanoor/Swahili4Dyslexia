@@ -14,6 +14,7 @@ function Navigation(){
         <li><Link to="/start-learning">Start Learning</Link></li>
         <li><Link to="/my-progress">My Progress</Link></li>
         <li><Link to="/settings">Settings</Link></li>
+        <li><Link to="/lesson/sentences" className="nav-link">Sentences</Link></li>
       </ul>
       <div className="nav-actions">
         <Link to="/help" className="help-icon">?</Link>

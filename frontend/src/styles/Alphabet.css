@@ -1,0 +1,110 @@
+.alphabet-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  color: #34495e;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.section-divider {
+  height: 2px;
+  background-color: #bdc3c7;
+  margin: 3rem 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.letters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.letter-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.letter-card:hover {
+  transform: translateY(-5px);
+}
+
+.letter {
+  font-size: 3rem;
+  color: #2c3e50;
+  margin: 0;
+  font-weight: bold;
+}
+
+.letter-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.example-word {
+  color: #34495e;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.audio-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.audio-button:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+  .alphabet-page {
+    padding: 1rem;
+  }
+
+  .letters-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .letter {
+    font-size: 2.5rem;
+  }
+
+  .example-word {
+    font-size: 1rem;
+  }
+}

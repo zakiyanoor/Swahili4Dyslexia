@@ -11,8 +11,8 @@ load_dotenv()
 db = SQLAlchemy()
 
 def create_app():
-    app = Flask(__name__)
-    CORS(app)  # Enable Cross-Origin Resource Sharing
+    app = Flask(__name__, static_folder='static', static_url_path='/static')
+    CORS(app) 
 
     # Configure the app using environment variables
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
