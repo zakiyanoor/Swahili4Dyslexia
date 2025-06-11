@@ -4,6 +4,8 @@ from app.routes.settings_routes import settings_bp
 from app.routes.help import help_bp
 from flask import Blueprint
 
+
+
 def register_routes(app):
     app.register_blueprint(learning_bp, url_prefix='/api')
     app.register_blueprint(progress_bp, url_prefix='/api')

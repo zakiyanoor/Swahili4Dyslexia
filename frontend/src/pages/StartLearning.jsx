@@ -37,4 +37,3 @@ const StartLearning = () => {
 };
 
 export default StartLearning;
-

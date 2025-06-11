@@ -116,4 +116,3 @@ function Alphabet() {
 }
 
 export default Alphabet;
-
