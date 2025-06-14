@@ -8,10 +8,10 @@ import Settings from "./pages/Settings";
 import { FontSizeProvider } from "./context/FontSizeContext";
 import Alphabet from "./pages/Alphabet";
 import Word from "./pages/Word";
+import Sentences from './pages/Sentences';
 
 function App() {
   return (
-
     <FontSizeProvider>
       <>
         <Navigation />
@@ -22,11 +22,10 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/lesson/Alphabet" element={<Alphabet />} />
           <Route path="/lesson/words" element={<Word/>}/>
-
+          <Route path="/lesson/sentences" element={<Sentences />} />
         </Routes>
       </>
     </FontSizeProvider>
-
   );
 }
 
