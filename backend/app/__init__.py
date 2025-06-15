@@ -1,30 +1,45 @@
+# __init__.py
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from dotenv import load_dotenv
+from flask_migrate import Migrate
+from app.models import db
+from config import AppConfig
+from flask_session import Session
+from flask_socketio import SocketIO
 
-# Load environment variables from .env file
+
 load_dotenv()
 
-# Initialize SQLAlchemy
-db = SQLAlchemy()
+migrate = Migrate()
+socketio = SocketIO(
+    cors_allowed_origins=["http://localhost:5173"],
+    manage_session=True,
+    async_handlers=True
+    
+)
 
 def create_app():
     app = Flask(__name__, static_folder='static', static_url_path='/static')
-    CORS(app) 
+    CORS(app, supports_credentials=True)
 
-    # Configure the app using environment variables
+    
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config.from_object(AppConfig)
 
-    # Initialize the database
     db.init_app(app)
+    migrate.init_app(app, db)
+    Session(app)
 
-    # Register routes (Blueprints)
+   
     from app.routes import register_routes
     register_routes(app)
 
+  
+    socketio.init_app(app)
+    
     return app
-
