@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 Flask-Cors
 python-dotenv
 gTTS
+Flask-Migrate>=4.0.4
