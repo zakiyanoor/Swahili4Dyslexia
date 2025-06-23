@@ -1,181 +1,146 @@
-import React, { useState } from 'react';
+// src/pages/Settings.jsx
+
+import React, { useState, useEffect, useContext } from 'react';
 import '../styles/Settings.css';
-import { Link } from 'react-router-dom';
-import { useFontSize } from '../context/FontSizeContext';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
+import { AuthContext } from '../context/AuthContext';
 
-function Settings() {
-    const [ttsEnabled, setTtsEnabled] = useState(true);
-    const [ttsSpeed, setTtsSpeed] = useState(50);
-    const [dyslexiaFont, setDyslexiaFont] = useState(true);
-    const { fontSize, changeFontSize } = useFontSize();
-    const [highContrast, setHighContrast] = useState(true);
-    const [audioFeedback, setAudioFeedback] = useState(true);
-    const [emailNotifications, setEmailNotifications] = useState(true);
-    const [wordSpacing, setWordSpacing] = useState(true);
-    const [lineGuides, setLineGuides] = useState(true);
+function Settings({ setDyslexiaFont, setHighContrast }) {
+  const { isAuth } = useAuth();
+  const { setIsAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const fontSizes = [
-        { value: 'small', label: 'Small' },
-        { value: 'medium', label: 'Medium' },
-        { value: 'large', label: 'Large' }
-    ];
+  const defaults = {
+    dyslexiaFont: true,
+    wordSpacing: true,
+    highContrast: true,
+    textSize: 16,
+    textWeight: 400,
+    lineHeight: 1.5,
+    letterSpacing: 0.05,
+    emailNotifications: true,
+  };
 
-    const handleFontSizeChange = (size) => {
-        changeFontSize(size);
-    };
+  // State hooks
+  const [dyslexiaFont, setDyslexiaFontLocal]    = useState(defaults.dyslexiaFont);
+  const [wordSpacing, setWordSpacing]           = useState(defaults.wordSpacing);
+  const [highContrast, setHighContrastLocal]    = useState(defaults.highContrast);
+  const [textSize, setTextSize]                 = useState(defaults.textSize);
+  const [textWeight, setTextWeight]             = useState(defaults.textWeight);
+  const [lineHeight, setLineHeight]             = useState(defaults.lineHeight);
+  const [letterSpacing, setLetterSpacing]       = useState(defaults.letterSpacing);
+  const [emailNotifications, setEmailNotifications] = useState(defaults.emailNotifications);
 
-    const handleDeleteAccount = () => {
-        if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-           
-            console.log('Delete account confirmed');
-        }
-    };
+  // Load saved settings once
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('settings')) || {};
+    setDyslexiaFontLocal(saved.dyslexiaFont    ?? defaults.dyslexiaFont);
+    setWordSpacing(saved.wordSpacing          ?? defaults.wordSpacing);
+    setHighContrastLocal(saved.highContrast    ?? defaults.highContrast);
+    setTextSize(saved.textSize                ?? defaults.textSize);
+    setTextWeight(saved.textWeight            ?? defaults.textWeight);
+    setLineHeight(saved.lineHeight            ?? defaults.lineHeight);
+    setLetterSpacing(saved.letterSpacing      ?? defaults.letterSpacing);
+    setEmailNotifications(saved.emailNotifications ?? defaults.emailNotifications);
+  }, []);
 
-    return (
-        <div className="settings-page">
-            <div className="settings-section">
-                <h2 className="settings-subtitle">Text-to-Speech</h2>
-                <div className="toggle-switch">
-                    <label htmlFor="tts-toggle" className="toggle-label">Text-to-Speech</label>
-                    <div className="toggle-container">
-                        <input 
-                            type="checkbox" 
-                            checked={ttsEnabled}
-                            onChange={() => setTtsEnabled(!ttsEnabled)}
-                            id="tts-toggle"
-                        />
-                        <label className="toggle-slider" htmlFor="tts-toggle"></label>
-                    </div>
-                </div>
-                <div className="slider-container">
-                    <div className="slider-label">
-                        <span>Speed</span>
-                        <span>{ttsSpeed}%</span>
-                    </div>
-                    <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={ttsSpeed}
-                        className="slider"
-                        onChange={(e) => setTtsSpeed(e.target.value)}
-                    />
-                </div>
-            </div>
+  // Update global theme flags
+  useEffect(() => {
+    setDyslexiaFont?.(dyslexiaFont);
+  }, [dyslexiaFont, setDyslexiaFont]);
 
-            <div className="settings-section">
-                <h2 className="settings-subtitle">Dyslexia Support</h2>
-                <div className="toggle-switch">
-                    <label htmlFor="dyslexia-font-toggle" className="toggle-label">Dyslexia-Friendly Font</label>
-                    <div className="toggle-container">
-                        <input 
-                            type="checkbox" 
-                            checked={dyslexiaFont}
-                            onChange={() => setDyslexiaFont(!dyslexiaFont)}
-                            id="dyslexia-font-toggle"
-                        />
-                        <label className="toggle-slider" htmlFor="dyslexia-font-toggle"></label>
-                    </div>
-                </div>
-                <div className="font-size-selector">
-                    <div className={`font-size-option ${fontSize === 'small' ? 'selected' : ''}`} onClick={() => handleFontSizeChange('small')}>
-                        <span>Small Text</span>
-                        <span className="example-text">Sample Text</span>
-                    </div>
-                    <div className={`font-size-option ${fontSize === 'medium' ? 'selected' : ''}`} onClick={() => handleFontSizeChange('medium')}>
-                        <span>Medium Text</span>
-                        <span className="example-text">Sample Text</span>
-                    </div>
-                    <div className={`font-size-option ${fontSize === 'large' ? 'selected' : ''}`} onClick={() => handleFontSizeChange('large')}>
-                        <span>Large Text</span>
-                        <span className="example-text">Sample Text</span>
-                    </div>
-                </div>
-                <div className="toggle-switch">
-                    <label htmlFor="high-contrast-toggle" className="toggle-label">High Contrast Mode</label>
-                    <div className="toggle-container">
-                        <input 
-                            type="checkbox" 
-                            checked={highContrast}
-                            onChange={() => setHighContrast(!highContrast)}
-                            id="high-contrast-toggle"
-                        />
-                        <label className="toggle-slider" htmlFor="high-contrast-toggle"></label>
-                    </div>
-                </div>
-                <div className="toggle-switch">
-                    <label htmlFor="audio-feedback-toggle" className="toggle-label">Word-by-Word Audio</label>
-                    <div className="toggle-container">
-                        <input 
-                            type="checkbox" 
-                            checked={audioFeedback}
-                            onChange={() => setAudioFeedback(!audioFeedback)}
-                            id="audio-feedback-toggle"
-                        />
-                        <label className="toggle-slider" htmlFor="audio-feedback-toggle"></label>
-                    </div>
-                </div>
-                <div className="toggle-switch">
-                    <label htmlFor="word-spacing-toggle" className="toggle-label">Increased Word Spacing</label>
-                    <div className="toggle-container">
-                        <input 
-                            type="checkbox" 
-                            checked={wordSpacing}
-                            onChange={() => setWordSpacing(!wordSpacing)}
-                            id="word-spacing-toggle"
-                        />
-                        <label className="toggle-slider" htmlFor="word-spacing-toggle"></label>
-                    </div>
-                </div>
-                <div className="toggle-switch">
-                    <label htmlFor="line-guides-toggle" className="toggle-label">Reading Line Guides</label>
-                    <div className="toggle-container">
-                        <input 
-                            type="checkbox" 
-                            checked={lineGuides}
-                            onChange={() => setLineGuides(!lineGuides)}
-                            id="line-guides-toggle"
-                        />
-                        <label className="toggle-slider" htmlFor="line-guides-toggle"></label>
-                    </div>
-                </div>
-            </div>
+  useEffect(() => {
+    setHighContrast?.(highContrast);
+  }, [highContrast, setHighContrast]);
 
-            <div className="settings-section">
-                <h2 className="settings-subtitle">Privacy & Security</h2>
-                <div className="settings-button">
-                    <a href="#" className="primary-button">Terms of Service</a>
-                </div>
-                <div className="settings-button">
-                    <a href="#" className="primary-button">Privacy Policy</a>
-                </div>
-                <button 
-                    className="danger-button"
-                    onClick={handleDeleteAccount}
-                >
-                    Delete Account
-                </button>
-            </div>
+  const handleSave = () => {
+    const settings = { dyslexiaFont, wordSpacing, highContrast, textSize, textWeight, lineHeight, letterSpacing, emailNotifications };
+    localStorage.setItem('settings', JSON.stringify(settings));
+    alert('Settings saved!');
+  };
 
-            <div className="settings-section">
-                <h2 className="settings-subtitle">Notifications</h2>
-                <div className="toggle-switch">
-                    <label htmlFor="email-notifications-toggle" className="toggle-label">Email Notifications</label>
-                    <div className="toggle-container">
-                        <input 
-                            type="checkbox" 
-                            checked={emailNotifications}
-                            onChange={() => setEmailNotifications(!emailNotifications)}
-                            id="email-notifications-toggle"
-                        />
-                        <label className="toggle-slider" htmlFor="email-notifications-toggle"></label>
-                    </div>
-                </div>
-            </div>
+  const handleDeleteAccount = async () => {
+    if (!window.confirm('Are you sure you want to delete your account? This cannot be undone.')) return;
+    try {
+      await axios.delete('http://localhost:5000/api/user', { withCredentials: true });
+      // clear auth
+      localStorage.removeItem('token');
+      localStorage.removeItem('isAuthenticated');
+      setIsAuth(false);
+      navigate('/signin');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to delete account.');
+    }
+  };
 
-            <button className="save-changes">Save Changes</button>
+  const renderSwitch = (id, label, checked, toggleFn) => (
+    <div className="toggle-switch">
+      <label htmlFor={id} className="toggle-label">{label}</label>
+      <div className="toggle-container">
+        <input id={id} type="checkbox" role="switch" aria-checked={checked} checked={checked} onChange={toggleFn} />
+        <label className="toggle-slider" htmlFor={id} />
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="settings-page">
+      {/* Typography & Dyslexia */}
+      <fieldset className="settings-section" aria-labelledby="typo-legend">
+        <legend id="typo-legend" className="settings-subtitle">Typography & Dyslexia Support</legend>
+        {renderSwitch('dyslexia-font-toggle','Dyslexia-Friendly Font', dyslexiaFont, () => setDyslexiaFontLocal(!dyslexiaFont))}
+        {renderSwitch('word-spacing-toggle','Increased Word Spacing', wordSpacing, () => setWordSpacing(!wordSpacing))}
+        {renderSwitch('high-contrast-toggle','High Contrast Mode', highContrast, () => setHighContrastLocal(!highContrast))}
+
+        {/* Text Size */}
+        <div className="slider-container">
+          <div className="slider-label"><span>Text Size</span><span>{textSize}px</span></div>
+          <input id="text-size-slider" type="range" min="12" max="24" step="1" value={textSize} className="slider" onChange={e => setTextSize(Number(e.target.value))} />
         </div>
-    );
+
+        {/* Text Weight */}
+        <div className="slider-container">
+          <div className="slider-label"><span>Text Weight</span><span>{textWeight}</span></div>
+          <input id="text-weight-slider" type="range" min="400" max="900" step="100" value={textWeight} className="slider" onChange={e => setTextWeight(Number(e.target.value))} />
+        </div>
+
+        {/* Line Height */}
+        <div className="slider-container">
+          <div className="slider-label"><span>Line Height</span><span>{lineHeight.toFixed(1)}</span></div>
+          <input id="line-height-slider" type="range" min="1.2" max="2.0" step="0.1" value={lineHeight} className="slider" onChange={e => setLineHeight(parseFloat(e.target.value))} />
+        </div>
+
+        {/* Letter Spacing */}
+        <div className="slider-container">
+          <div className="slider-label"><span>Letter Spacing</span><span>{letterSpacing.toFixed(2)}em</span></div>
+          <input id="letter-spacing-slider" type="range" min="0" max="0.3" step="0.02" value={letterSpacing} className="slider" onChange={e => setLetterSpacing(parseFloat(e.target.value))} />
+        </div>
+      </fieldset>
+
+      {/* Notifications */}
+      <fieldset className="settings-section" aria-labelledby="notify-legend">
+        <legend id="notify-legend" className="settings-subtitle">Notifications</legend>
+        {renderSwitch('email-notifications-toggle','Email Notifications', emailNotifications, () => setEmailNotifications(!emailNotifications))}
+      </fieldset>
+
+      {/* Privacy & Security */}
+      <fieldset className="settings-section" aria-labelledby="privacy-legend">
+        <legend id="privacy-legend" className="settings-subtitle">Privacy & Security</legend>
+        <Link to="/terms" className="primary-button settings-button">Terms of Service</Link>
+        <Link to="/privacy" className="primary-button settings-button">Privacy Policy</Link>
+        {isAuth && (
+          <button className="danger-button settings-button" onClick={handleDeleteAccount}>
+            Delete Account
+          </button>
+        )}
+      </fieldset>
+
+      <button className="save-changes" onClick={handleSave}>Save Changes</button>
+    </div>
+  );
 }
 
 export default Settings;

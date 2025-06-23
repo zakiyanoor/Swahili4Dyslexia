@@ -1,3 +1,22 @@
-# Ignore Python virtual environments
+# ─── Python / Flask ────────────────────────────────────────
 venv/
 backend/venv/
+**/__pycache__/
+**/*.pyc
+backend/instance/*.db
+backend/instance/
+.env
+backend/.env
+
+# ─── Node / Frontend ───────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+frontend/.env.local
+
+# ─── OS / Editor ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.log

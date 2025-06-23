@@ -2,16 +2,20 @@
 
 .start-learning-container {
   padding: 2rem;
-  background-color: #f6fdf7; 
+  background-color: var(--background-color);
   min-height: 100vh;
-  font-family: sans-serif;
   text-align: center;
+  color: var(--text-color);
+  font-size: var(--app-base-font-size);
+  line-height: var(--app-line-height);
+  letter-spacing: var(--app-letter-spacing);
+  word-spacing: var(--app-word-spacing);
 }
 
 .intro-text {
-  font-size: 1.25rem;
+  font-size: calc(var(--app-base-font-size) * 1.25);
   font-weight: bold;
-  color: #000;
+  color: var(--text-color);
   margin-bottom: 2rem;
 }
 
@@ -23,7 +27,7 @@
 }
 
 .learning-card {
-  background-color: #ffffff;
+  background-color: var(--section-bg-color);
   border-radius: 12px;
   width: 220px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -43,13 +47,13 @@
 }
 
 .learning-card h2 {
-  font-size: 1.1rem;
-  color: #1c3f2c;
+  font-size: calc(var(--app-base-font-size) * 1.1);
+  color: var(--text-color);
   margin: 0.5rem 0;
 }
 
 .start-button {
-  background-color: #1c3f2c;
+  background-color: var(--link-color);
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -59,6 +63,7 @@
 }
 
 .start-button:hover {
-  background-color: #145029;
+  background-color: var(--link-color);
+  opacity: 0.8;
 }
 

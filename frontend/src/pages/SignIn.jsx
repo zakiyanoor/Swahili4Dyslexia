@@ -1,10 +1,9 @@
 import { connectSocket, getSocket } from '../../hooks/sockets';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-import useAuth from '../../hooks/useAuth';
- 
+import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 import '../styles/AuthForm.css';
@@ -13,7 +12,7 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); 
-  const {isAuth,username,isLoading}=useAuth();
+  const { setIsAuth, isAuth } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
   e.preventDefault();
@@ -33,7 +32,7 @@ function SignIn() {
 
     console.log(checkAuth.data);
     localStorage.setItem("isAuthenticated", checkAuth.data.isAuthenticated);
-
+    setIsAuth(true);
     
     navigate('/start-learning');
     
@@ -64,8 +63,8 @@ function SignIn() {
 
     console.log(checkAuth.data);
     localStorage.setItem("isAuthenticated", checkAuth.data.isAuthenticated);
-
-   
+    setIsAuth(true);
+    
     navigate('/start-learning');
     
   } catch (err) {
