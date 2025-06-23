@@ -3,7 +3,7 @@ import '../styles/Progress.css';
 import { Link } from 'react-router-dom';
 
 function Progress() {
-    // Sample data - replace with actual user data
+    
     const userData = {
         name: 'John Doe',
         role: 'Beginner',
@@ -40,7 +40,7 @@ function Progress() {
 
     return (
         <div className="progress-page">
-            {/* Left Sidebar */}
+            {}
             <div className="sidebar">
                 <div className="user-profile">
                     <div className="user-avatar">{userData.avatarInitial}</div>
@@ -50,7 +50,7 @@ function Progress() {
                 </div>
             </div>
 
-            {/* Main Content */}
+            {}
             <div className="main-content">
                 <div className="progress-header">
                     <h1>My Progress</h1>

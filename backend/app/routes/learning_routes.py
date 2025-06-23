@@ -38,10 +38,10 @@ def get_full_alphabet():
 def get_lesson_audio(lesson_id):
     lesson = Lesson.query.get_or_404(lesson_id)
     
-    # Customize text based on the letter
+   
     if lesson.category == "Alphabets":
         if lesson.content == "C":
-            text = "herufi cha"  # Special case for C
+            text = "herufi cha"  
         else:
             text = f"herufi {lesson.content.lower()}"
     elif lesson.category == "Vowels":
@@ -49,8 +49,8 @@ def get_lesson_audio(lesson_id):
     else:
         text = lesson.content.lower()
 
-    # Generate audio using gTTS
-    tts = gTTS(text=text, lang='sw')  # Use 'sw' for Swahili
+   
+    tts = gTTS(text=text, lang='sw') 
     mp3_fp = BytesIO()
     tts.write_to_fp(mp3_fp)
     mp3_fp.seek(0)

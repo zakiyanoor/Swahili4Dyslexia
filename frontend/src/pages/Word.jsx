@@ -11,7 +11,7 @@ function Word() {
             .then((res) => res.json())
             .then((data) => {
                 setWords(data);
-                // Filter out "Basic" category and set the first available category as selected
+               
                 const categories = Object.keys(data).filter(category => category !== "Basic");
                 if (categories.length > 0) {
                     setSelectedCategory(categories[0]);
@@ -24,7 +24,7 @@ function Word() {
             });
     }, []);
 
-    // Filter out "Basic" category from the list
+  
     const categoryList = Object.keys(words).filter(category => category !== "Basic");
 
     // If no category is selected, default to the first non-Basic category
@@ -39,7 +39,7 @@ function Word() {
 
     return (
         <div className="word-page">
-            {/* Left Sidebar */}
+            {}
             <div className="categories-sidebar">
                 <h2>Categories</h2>
                 <ul>
@@ -56,7 +56,7 @@ function Word() {
                 </ul>
             </div>
 
-            {/* Main Content Area */}
+            {}
             <div className="main-content">
                 <h2>{selectedCategory}</h2>
                 <div className="words-grid">

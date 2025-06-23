@@ -11,7 +11,7 @@ const categories = [
   { title: 'ALPHABETS', image: alphabetImg, path: '/lesson/Alphabet' },
   { title: 'WORDS', image: wordsImg, path: '/lesson/words' },
   { title: 'SENTENCES', image: sentencesImg, path: '/lesson/sentences' },
-  { title: 'GAMES', image: gamesImg, path: '/games' }
+  { title: 'GAMES', image: gamesImg, path: '/game' }
 ];
 
 const StartLearning = () => {

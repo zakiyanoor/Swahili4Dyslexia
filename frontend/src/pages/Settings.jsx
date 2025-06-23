@@ -26,7 +26,7 @@ function Settings() {
 
     const handleDeleteAccount = () => {
         if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-            // Add delete account logic here
+           
             console.log('Delete account confirmed');
         }
     };

@@ -18,7 +18,7 @@ function Alphabet() {
                 throw new Error('Failed to fetch letters');
             }
             const data = await response.json();
-            console.log('Fetched data:', data); // Debug log
+            console.log('Fetched data:', data); 
             setLetters(data);
             setLoading(false);
         } catch (err) {
@@ -57,7 +57,7 @@ function Alphabet() {
         <div className="alphabet-page">
             <h1 className="title">Swahili Alphabet</h1>
             
-            {/* Vowels Section */}
+            {}
             <div className="section">
                 <h2 className="section-title">Vowels (Irabu)</h2>
                 <div className="letters-grid">
@@ -83,10 +83,10 @@ function Alphabet() {
                 </div>
             </div>
 
-            {/* Divider */}
+            {}
             <div className="section-divider"></div>
 
-            {/* Consonants Section */}
+            {}
             <div className="section">
                 <h2 className="section-title">Consonants (Herufi)</h2>
                 <div className="letters-grid">

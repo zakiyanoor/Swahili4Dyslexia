@@ -1,4 +1,4 @@
-/* styles/Settings.css */
+
 @font-face {
     font-family: 'OpenDyslexic';
     src: url('/fonts/opendyslexic/OpenDyslexic-Regular.woff2') format('woff2'),
@@ -70,7 +70,7 @@
     font-weight: 500;
 }
 
-/* Toggle Switch Styles */
+
 .toggle-switch {
     display: flex;
     justify-content: space-between;
@@ -144,7 +144,7 @@ input:checked + .toggle-slider:before {
     border-color: #00A77F;
 }
 
-/* Slider Styles */
+
 .slider-container {
     margin: 1rem 0;
 }
@@ -187,7 +187,6 @@ input:checked + .toggle-slider:before {
     background: #008f6a;
 }
 
-/* Font Size Selector */
 .font-size-selector {
     display: flex;
     gap: 1.5rem;
@@ -261,7 +260,7 @@ input:checked + .toggle-slider:before {
     font-size: 1.4rem;
 }
 
-/* Button Styles */
+
 .settings-button {
     display: inline-block;
     padding: 0.75rem 1.5rem;
