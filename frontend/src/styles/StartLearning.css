@@ -1,8 +1,8 @@
-/* StartLearning.css */
+
 
 .start-learning-container {
   padding: 2rem;
-  background-color: #f6fdf7; /* subtle light green background */
+  background-color: #f6fdf7; 
   min-height: 100vh;
   font-family: sans-serif;
   text-align: center;
@@ -44,7 +44,7 @@
 
 .learning-card h2 {
   font-size: 1.1rem;
-  color: #1c3f2c; /* dark green-black */
+  color: #1c3f2c;
   margin: 0.5rem 0;
 }
 

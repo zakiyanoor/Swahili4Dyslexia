@@ -8,8 +8,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128))  # For regular login users
-    google_id = db.Column(db.String(128), unique=True, nullable=True)  # For Google login users
+    password_hash = db.Column(db.String(128)) 
+    google_id = db.Column(db.String(128), unique=True, nullable=True) 
     
     __table_args__ = (
     UniqueConstraint('google_id', name='uq_google_id'),
@@ -33,7 +33,7 @@ class User(db.Model):
 class Lesson(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    category = db.Column(db.String(50), nullable=False)  # Alphabet, Words, Sentences, Games
+    category = db.Column(db.String(50), nullable=False)
     content = db.Column(db.Text)
     audio_url = db.Column(db.String(255))
     image_url = db.Column(db.String(255))
@@ -84,4 +84,16 @@ class UserSettings(db.Model):
             "audio_speed": self.audio_speed
         }
     
+class GameQuestion(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    type=db.Column(db.String(50))
+    question=db.Column(db.String(200))
+    correct_answer=db.Column(db.String(50))
+    options=db.Column(db.JSON)
 
+class GameResult(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    user_id=db.Column(db.Integer)
+    question_id=db.Column(db.Integer,db.ForeignKey("game_question.id"))
+    chosen_answer=db.Column(db.String(50))
+    is_correct=db.Column(db.Boolean)

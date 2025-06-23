@@ -11,6 +11,7 @@ import Word from "./pages/Word";
 import Sentences from './pages/Sentences';
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Game from "./pages/Game";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/lesson/sentences" element={<Sentences />} />
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/game" element={<Game />} />
         </Routes>
       </>
     </FontSizeProvider>

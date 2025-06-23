@@ -23,7 +23,7 @@ socketio = SocketIO(
 
 def create_app():
     app = Flask(__name__, static_folder='static', static_url_path='/static')
-    CORS(app, supports_credentials=True)
+    CORS(app, supports_credentials=True,origins=["http://localhost:5173"])
 
     
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')

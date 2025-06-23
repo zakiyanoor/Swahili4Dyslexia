@@ -1,13 +1,13 @@
 from app import create_app, db
-from app.models.models import Lesson
+from app.models.models import Lesson,GameQuestion
 import os
 
 def seed_database():
-    # Clear existing words
+    
     Lesson.query.delete()
     db.session.commit()
 
-    # Define alphabet letters
+    
     consonants = [
         ("B", "B"),
         ("C", "C"),
@@ -38,7 +38,7 @@ def seed_database():
         ("U", "U")
     ]
 
-    # Insert consonants
+    
     for letter, content in consonants:
         lesson = Lesson(
             title=letter,
@@ -47,7 +47,7 @@ def seed_database():
         )
         db.session.add(lesson)
 
-    # Insert vowels
+    
     for letter, content in vowels:
         lesson = Lesson(
             title=letter,
@@ -56,7 +56,7 @@ def seed_database():
         )
         db.session.add(lesson)
 
-    # Define word categories
+    
     body_parts = [
         ("Head", "kichwa"),
         ("Hand", "mkono"),
@@ -172,10 +172,10 @@ def seed_database():
         ("Bee", "nyuki")
     ]
 
-    # Create words data
+    
     words_data = []
     
-    # Add body parts
+    
     for english, swahili in body_parts:
         words_data.append({
             "title": english,
@@ -184,7 +184,7 @@ def seed_database():
             "image_url": f"images/body/{swahili}.jpeg"
         })
     
-    # Add colors
+    
     for english, swahili in colors:
         words_data.append({
             "title": english,
@@ -193,7 +193,7 @@ def seed_database():
             "image_url": f"images/colors/{swahili}.jpeg"
         })
     
-    # Add food
+    
     for english, swahili in food:
         words_data.append({
             "title": english,
@@ -202,7 +202,7 @@ def seed_database():
             "image_url": f"images/food/{swahili}.jpeg"
         })
     
-    # Add family
+    
     for english, swahili in family:
         words_data.append({
             "title": english,
@@ -211,7 +211,7 @@ def seed_database():
             "image_url": f"images/family/{swahili}.jpeg"
         })
 
-    # Add animals
+   
     for english, swahili in animals:
         words_data.append({
             "title": english,
@@ -220,7 +220,7 @@ def seed_database():
             "image_url": f"images/animals/{swahili}.jpeg"
         })
 
-    # Insert words into database
+    
     for word in words_data:
         lesson = Lesson(
             title=word["title"],
@@ -230,7 +230,7 @@ def seed_database():
         )
         db.session.add(lesson)
 
-    # Basic sentences
+    
     basic_sentences = [
         ("Hello, how are you?", "Hujambo, habari yako?"),
         ("I am fine, thank you", "Nzuri, asante"),
@@ -254,7 +254,7 @@ def seed_database():
         ("Goodbye", "Kwaheri")
     ]
 
-    # Insert sentences into database
+    
     for english, swahili in basic_sentences:
         lesson = Lesson(
             title=english,
@@ -263,6 +263,60 @@ def seed_database():
             audio_url=f"audio/basic/{english.lower().replace(' ', '_')}.mp3"
         )
         db.session.add(lesson)
+
+    game_questions = [
+        {
+            "question": "Cha___la (Hint: Food)",
+            "correct_answer": "k",
+            "options": ["p", "m", "k", "b"]
+        },
+        {
+            "question": "Suka___ (Hint: Sugar)",
+            "correct_answer": "ri",
+            "options": ["ra", "re", "ri", "ro"]
+        },
+        {
+            "question": "Ng'o___be (Hint: Cow)",
+            "correct_answer": "m",
+            "options": ["m", "n", "b", "l"]
+        },
+        {
+            "question": "Ki___wa (Hint: Thing)",
+            "correct_answer": "tu",
+            "options": ["tu", "fu", "bo", "no"]
+        },
+        {
+            "question": "Ma___ (Hint: Water)",
+            "correct_answer": "ji",
+            "options": ["ji", "zi", "le", "ya"]
+        },
+        {
+            "question": "Sa___ki (Hint: Fish)",
+            "correct_answer": "ma",
+            "options": ["na", "ma", "ra", "ta"]
+        },
+        {
+            "question": "Ch___ (Hint: Tea)",
+            "correct_answer": "ai",
+            "options": ["ai", "ua", "ia", "oa"]
+        },
+        {
+            "question": "Mdo___ (Hint: Mouth)",
+            "correct_answer": "mo",
+            "options": ["mo", "lo", "ro", "to"]
+        },
+    ]
+
+    for q in game_questions:
+        game = GameQuestion(
+            type="fill_blank",
+            question=q["question"],
+            correct_answer=q["correct_answer"],
+            options=q["options"]
+        )
+        db.session.add(game)
+
+
 
     db.session.commit()
     print("Database seeded successfully!")

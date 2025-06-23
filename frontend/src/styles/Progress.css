@@ -1,4 +1,4 @@
-/* styles/Progress.css */
+
 .progress-page {
     background-color: #fefefe;
     padding: 2rem;
@@ -10,7 +10,6 @@
     margin: 0 auto;
 }
 
-/* Left Sidebar Styles */
 .sidebar {
     flex: 0 0 250px;
     background: #fff;
@@ -68,7 +67,6 @@
     color: #008f6a;
 }
 
-/* Main Content Styles */
 .main-content {
     flex: 1;
     display: flex;
