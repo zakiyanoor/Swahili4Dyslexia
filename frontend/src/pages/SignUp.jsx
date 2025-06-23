@@ -4,6 +4,7 @@ import '../styles/AuthForm.css';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp(){
+    const navigate = useNavigate();
     const[email,setEmail] = useState('');
     const [password,setPassword]=useState('');
     const [username, setUsername] = useState('');
@@ -16,12 +17,14 @@ function SignUp(){
                 email,
                 password,
             });
-            alert('Account created!')
-             navigate('/');
+            if (!res || res.status !== 201) {
+              throw new Error(res?.data?.message || 'Signup failed');
+            }
+            alert('Account created successfully');
+            navigate('/signin');
         } catch(err){
-            alert('Signup failed')
+            alert('Signup failed: ' + (err?.response?.data?.message || err.message));
         }
-         
     }
     return(
         <div className="auth-container">

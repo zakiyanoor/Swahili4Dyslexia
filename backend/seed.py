@@ -229,8 +229,8 @@ def seed_database():
             image_url=word["image_url"]
         )
         db.session.add(lesson)
-
-    
+  
+    # Basic sentences
     basic_sentences = [
         ("Hello, how are you?", "Hujambo, habari yako?"),
         ("I am fine, thank you", "Nzuri, asante"),
@@ -256,7 +256,7 @@ def seed_database():
 
     
     for english, swahili in basic_sentences:
-        lesson = Lesson(
+           lesson = Lesson(
             title=english,
             category="Basic",
             content=swahili,

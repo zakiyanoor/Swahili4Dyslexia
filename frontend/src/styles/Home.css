@@ -4,10 +4,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 4rem 5%;
-    background-color: #fefefe;
-    font-family: "Segoe UI", sans-serif;
+    background-color: var(--background-color);
     flex-wrap: wrap;
-    font-size: calc(1rem * var(--font-size-scale));
+    font-size: var(--app-base-font-size);
+    line-height: var(--app-line-height);
+    letter-spacing: var(--app-letter-spacing);
+    word-spacing: var(--app-word-spacing);
   }
   
   .hero-content {
@@ -15,26 +17,26 @@
   }
   
   .hero h1 {
-    font-size: calc(3rem * var(--font-size-scale));
-    color: #111;
+    font-size: calc(var(--app-base-font-size) * 2);
+    color: var(--text-color);
     margin-bottom: 1rem;
   }
   
   .hero h1 span {
-    color: #00A77F;
+    color: var(--link-color);
   }
   
   .tagline {
-    font-size: calc(1.2rem * var(--font-size-scale));
-    color: #555;
+    font-size: calc(var(--app-base-font-size) * 1.2);
+    color: var(--text-color);
     margin-bottom: 2rem;
   }
   
   .cta-button {
-    background-color: #00A77F;
-    color: white;
+    background-color: var(--link-color);
+    color: #fff;
     padding: 0.75rem 2rem;
-    font-size: calc(1rem * var(--font-size-scale));
+    font-size: var(--app-base-font-size);
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -42,15 +44,16 @@
   }
   
   .cta-button:hover {
-    background-color: #008f6a;
+    background-color: var(--link-color);
+    opacity: 0.8;
   }
   
   .metrics {
     display: flex;
     gap: 2rem;
     margin-top: 2rem;
-    font-size: calc(1rem * var(--font-size-scale));
-    color: #333;
+    font-size: var(--app-base-font-size);
+    color: var(--text-color);
   }
   
   .metrics div {

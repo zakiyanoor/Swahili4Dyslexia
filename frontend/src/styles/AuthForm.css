@@ -2,19 +2,24 @@
 .auth-container {
   max-width: 400px;
   margin: 3rem auto;
-  background-color: #ffffff;
-  border: 2px solid #000000;
+  background-color: var(--section-bg-color);
+  border: 2px solid var(--text-color);
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   font-family: 'OpenDyslexic', Arial, sans-serif;
   text-align: center;
+  color: var(--text-color);
+  font-size: var(--app-base-font-size);
+  line-height: var(--app-line-height);
+  letter-spacing: var(--app-letter-spacing);
+  word-spacing: var(--app-word-spacing);
 }
 
 .auth-container h2 {
   margin-bottom: 1.5rem;
-  color: #006400; 
-  font-size: 2rem;
+  color: var(--link-color);
+  font-size: calc(var(--app-base-font-size) * 1.5);
 }
 
 .auth-form {
@@ -25,24 +30,24 @@
 
 .auth-form input {
   padding: 0.75rem;
-  font-size: 1rem;
-  border: 1.5px solid #006400;
+  font-size: var(--app-base-font-size);
+  border: 1.5px solid var(--link-color);
   border-radius: 8px;
-  background-color: #f9f9f9;
-  color: #000;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .auth-form input:focus {
   outline: none;
-  border-color: #228b22;
-  background-color: #ffffff;
+  border-color: var(--link-color);
+  background-color: var(--section-bg-color);
 }
 
 .auth-form button {
   padding: 0.75rem;
-  background-color: #006400;
-  color: #ffffff;
-  font-size: 1.1rem;
+  background-color: var(--link-color);
+  color: #fff;
+  font-size: calc(var(--app-base-font-size) * 1.1);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -50,15 +55,12 @@
 }
 
 .auth-form button:hover {
-  background-color: #228b22;
+  background-color: var(--link-color);
+  opacity: 0.8;
 }
 
 .google-login-button {
   margin: 1rem 0;
-}
-
-button, input {
-  font-family: 'OpenDyslexic', Arial, sans-serif;
 }
 
 

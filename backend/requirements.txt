@@ -4,3 +4,6 @@ Flask-Cors
 python-dotenv
 gTTS
 Flask-Migrate>=4.0.4
+Flask-Session
+Flask-SocketIO
+Flask-JWT-Extended

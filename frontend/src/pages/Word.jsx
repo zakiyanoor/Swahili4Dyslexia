@@ -17,11 +17,11 @@ function Word() {
                     setSelectedCategory(categories[0]);
                 }
                 setLoading(false);
-            })
+        })
             .catch((err) => {
                 console.error("Failed to fetch words:", err);
-                setLoading(false);
-            });
+            setLoading(false);
+        });
     }, []);
 
   
@@ -35,11 +35,11 @@ function Word() {
     }, [categoryList, selectedCategory]);
 
     if (loading) return <p>Loading....</p>;
-    if (!Object.keys(words).length) return <p>No words found.</p>;
+ if (!Object.keys(words).length) return <p>No words found.</p>;
 
     return (
-        <div className="word-page">
-            {}
+     <div className="word-page">
+            {/* Left Sidebar */}
             <div className="categories-sidebar">
                 <h2>Categories</h2>
                 <ul>
@@ -49,7 +49,7 @@ function Word() {
                             className={selectedCategory === category ? "active" : ""}
                             onClick={() => setSelectedCategory(category)}
                             style={{ cursor: 'pointer' }}
-                        >
+                            >
                             {category}
                         </li>
                     ))}
@@ -64,12 +64,19 @@ function Word() {
                         words[selectedCategory].map((word) => (
                             <div className="word-card" key={word.id}>
                                 <img
-                                    src={word.image_url}
+                                    src={`http://localhost:5000/static/${word.image_url}`}
                                     alt={word.content}
                                     className="word-image"
                                     onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "/static/images/placeholder.jpeg";
+                                        // Try different extensions in order: jpg -> jpeg -> png
+                                        if (e.target.src.endsWith('.jpg')) {
+                                            e.target.src = e.target.src.replace('.jpg', '.jpeg');
+                                        } else if (e.target.src.endsWith('.jpeg')) {
+                                            e.target.src = e.target.src.replace('.jpeg', '.png');
+                                        } else {
+                                            e.target.onerror = null;
+                                            e.target.src = "http://localhost:5000/static/images/placeholder.jpeg";
+                                        }
                                     }}
                                 />
                                 <div className="word-content">
@@ -85,7 +92,7 @@ function Word() {
                         ))}
                 </div>
             </div>
-        </div>
+     </div>
     );
 }
 
