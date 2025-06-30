@@ -1,4 +1,4 @@
-/* styles/Settings.css */
+
 
 @font-face {
     font-family: 'OpenDyslexic';
@@ -15,7 +15,7 @@
     font-style: normal;
   }
 
-  /* Remove all global variables and theme classes from here. Only keep component/page styles below. */
+ 
 
   .settings-page {
     background-color: var(--background-color);
@@ -25,7 +25,6 @@
     text-align: left;
   }
   
-  /* Section Cards */
   .settings-section {
     background-color: var(--section-bg-color);
     padding: 2.5rem;
@@ -40,7 +39,7 @@
     transform: translateY(-3px);
   }
   
-  /* Headings */
+  
   .settings-title {
     font-size: 1.5rem;
     font-weight: bold;
@@ -52,7 +51,7 @@
     font-weight: 500;
   }
   
-  /* Toggle Switch */
+  
   .toggle-switch {
     display: flex;
     justify-content: space-between;
@@ -115,7 +114,7 @@
     border-color: var(--link-color);
   }
   
-  /* Range Slider */
+ 
   .slider-container {
     margin: 1rem 0;
   }
@@ -152,7 +151,7 @@
     background: #008f6a;
   }
   
-  /* Buttons */
+  
   .settings-button,
   .primary-button,
   .danger-button,
@@ -190,7 +189,7 @@
     transform: translateY(-2px);
   }
   
-  /* Focus Styles */
+ 
   input:focus,
   button:focus,
   .slider:focus,

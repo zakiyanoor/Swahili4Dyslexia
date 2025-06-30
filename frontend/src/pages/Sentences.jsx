@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import '../styles/Sentences.css';
 
 const Sentences = () => {
     const [sentences, setSentences] = useState({});
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchSentences = async () => {
@@ -31,6 +33,19 @@ const Sentences = () => {
         try {
             const audio = new Audio(`http://localhost:5000/api/lesson/audio/${sentenceId}`);
             await audio.play();
+
+            const res = await fetch('http://localhost:5000/api/progress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },  
+                body: JSON.stringify({ lesson_id: sentenceId, user_id: user.user_id }),
+                credentials: 'include',
+            });
+            if (!res.ok) {
+                throw new Error('Failed to update progress');
+            }
+            console.log('Progress updated successfully')
         } catch (error) {
             console.error('Error playing audio:', error);
         }

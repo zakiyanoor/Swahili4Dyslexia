@@ -1,10 +1,10 @@
-// src/App.jsx
 
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import StartLearning from "./pages/StartLearning";
+import Game from "./pages/Game";
 import Progress from "./pages/Progress";
 import Settings from "./pages/Settings";
 import { FontSizeProvider } from "./context/FontSizeContext";
@@ -15,21 +15,23 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
 
 function App() {
-  // Theme toggles
+ 
   const [dyslexiaFont, setDyslexiaFont] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
 
-  // Load *all* settings on mount and apply immediately
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("settings")) || {};
 
-    // 1) Theme classes
+    
     setDyslexiaFont(!!saved.dyslexiaFont);
     setHighContrast(!!saved.highContrast);
 
-    // 2) All typography vars
+  
     const root = document.documentElement;
     if (typeof saved.textSize === "number")
       root.style.setProperty("--app-base-font-size", `${saved.textSize}px`);
@@ -46,10 +48,10 @@ function App() {
       "--app-word-spacing",
       saved.wordSpacing ? "0.35em" : "normal"
     );
-    // (you can also load audioFeedback, emailNotifications etc. here if needed)
+   
   }, []);
 
-  // Apply or remove theme classes to <html>
+ 
   useEffect(() => {
     const root = document.documentElement;
     dyslexiaFont
@@ -78,6 +80,9 @@ function App() {
             <Route path="/lesson/Alphabet" element={<ProtectedRoute><Alphabet /></ProtectedRoute>} />
             <Route path="/lesson/words" element={<ProtectedRoute><Word /></ProtectedRoute>} />
             <Route path="/lesson/sentences" element={<ProtectedRoute><Sentences /></ProtectedRoute>} />
+            <Route path="/game" element={<ProtectedRoute><Game/></ProtectedRoute>}/>
+            <Route path="/admin/dashboard" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+
           </Routes>
         </>
       </FontSizeProvider>

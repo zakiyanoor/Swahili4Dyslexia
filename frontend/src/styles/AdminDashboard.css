@@ -1,0 +1,81 @@
+
+.dashboard-container {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: white;
+  color: black;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.summary-boxes {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary {
+  flex: 1;
+  padding: 1rem;
+  background: #f0f0f0;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.summary span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  color: green;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table th, table td {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+input, textarea {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+}
+
+.green-btn {
+  background-color: #00a86b;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.green-btn:hover {
+  background-color: #007f57;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}

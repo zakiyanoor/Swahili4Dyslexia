@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react'
+import {AuthContext} from '../context/AuthContext';
 import '../styles/Alphabet.css';
+import axios from 'axios';
 
 function Alphabet() {
     const [letters, setLetters] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [audioCache, setAudioCache] = useState({});
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         fetchLetters();
@@ -41,6 +44,18 @@ function Alphabet() {
             } else {
                 await audioCache[audioUrl].play();
             }
+            const res = await fetch('http://localhost:5000/api/progress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },  
+                body: JSON.stringify({ lesson_id: letterId, user_id: user.user_id }),
+                credentials: 'include',
+            });
+            if (!res.ok) {
+                throw new Error('Failed to update progress');
+            }
+            console.log('Progress updated successfully')
         } catch (err) {
             console.error('Error playing audio:', err);
         }
@@ -49,7 +64,7 @@ function Alphabet() {
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">Error: {error}</div>;
 
-    // Separate vowels and consonants
+    
     const vowels = letters.filter(letter => letter.category === 'Vowels');
     const consonants = letters.filter(letter => letter.category === 'Alphabets');
 

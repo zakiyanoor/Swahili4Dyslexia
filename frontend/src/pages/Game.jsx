@@ -53,7 +53,8 @@
 // };
 
 // export default Game;
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
+import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import "../styles/Game.css";
 
@@ -61,13 +62,12 @@ const Game = () => {
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [results, setResults] = useState({});
+  const {user}= useContext(AuthContext);
 
   // Fetch multiple questions from the backend
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/game/questions", {
-        withCredentials: true
-      })
+      .get("http://localhost:5000/api/game/questions",)
       .then((res) => {
         console.log("🎯 Questions received:", res.data);
         setQuestions(res.data);
@@ -82,26 +82,42 @@ const Game = () => {
 
   // Submit selected answer
   const submit = (questionId) => {
-    const chosen = selectedAnswers[questionId];
-    if (!chosen) return;
+  const chosen = selectedAnswers[questionId];
+  if (!chosen) return;
 
-    axios
-      .post(
-        "http://localhost:5000/api/game/submit",
-        {
-          question_id: questionId,
-          chosen_answer: chosen
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        setResults((prev) => ({
-          ...prev,
-          [questionId]: res.data.correct ? "✅ Correct!" : "❌ Try Again!"
-        }));
-      })
-      .catch((err) => console.error("❌ Error submitting answer:", err));
-  };
+  axios
+    .post(
+      "http://localhost:5000/api/game/submit",
+      {
+        question_id: questionId,
+        chosen_answer: chosen
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      const isCorrect = res.data.correct;
+      setResults((prev) => ({
+        ...prev,
+        [questionId]: isCorrect ? "✅ Correct!" : "❌ Try Again!"
+      }));
+
+      if (isCorrect) {
+        // Progress update call — use special lesson ID for games
+        axios.post(
+          "http://localhost:5000/api/progress",
+          {
+            lesson_id: questionId,        
+            user_id: user.user_id  
+          },
+          { withCredentials: true }
+        )
+        .then(() => console.log("🎉 Game progress updated"))
+        .catch((err) => console.error("❌ Error updating game progress:", err));
+      }
+    })
+    .catch((err) => console.error("❌ Error submitting answer:", err));
+};
+
 
   // Show loading message
   if (!questions.length) return <p>Loading game questions...</p>;

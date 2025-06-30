@@ -1,5 +1,3 @@
-// src/pages/Settings.jsx
-
 import React, { useState, useEffect, useContext } from 'react';
 import '../styles/Settings.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,7 +21,7 @@ function Settings({ setDyslexiaFont, setHighContrast }) {
     emailNotifications: true,
   };
 
-  // State hooks
+
   const [dyslexiaFont, setDyslexiaFontLocal]    = useState(defaults.dyslexiaFont);
   const [wordSpacing, setWordSpacing]           = useState(defaults.wordSpacing);
   const [highContrast, setHighContrastLocal]    = useState(defaults.highContrast);
@@ -33,7 +31,7 @@ function Settings({ setDyslexiaFont, setHighContrast }) {
   const [letterSpacing, setLetterSpacing]       = useState(defaults.letterSpacing);
   const [emailNotifications, setEmailNotifications] = useState(defaults.emailNotifications);
 
-  // Load saved settings once
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('settings')) || {};
     setDyslexiaFontLocal(saved.dyslexiaFont    ?? defaults.dyslexiaFont);
@@ -46,7 +44,7 @@ function Settings({ setDyslexiaFont, setHighContrast }) {
     setEmailNotifications(saved.emailNotifications ?? defaults.emailNotifications);
   }, []);
 
-  // Update global theme flags
+
   useEffect(() => {
     setDyslexiaFont?.(dyslexiaFont);
   }, [dyslexiaFont, setDyslexiaFont]);
@@ -65,7 +63,7 @@ function Settings({ setDyslexiaFont, setHighContrast }) {
     if (!window.confirm('Are you sure you want to delete your account? This cannot be undone.')) return;
     try {
       await axios.delete('http://localhost:5000/api/user', { withCredentials: true });
-      // clear auth
+     
       localStorage.removeItem('token');
       localStorage.removeItem('isAuthenticated');
       setIsAuth(false);

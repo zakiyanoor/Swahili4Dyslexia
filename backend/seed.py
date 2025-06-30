@@ -1,226 +1,106 @@
 from app import create_app, db
-from app.models.models import Lesson,GameQuestion
-import os
+from app.models.models import Lesson, GameQuestion,User
+from werkzeug.security import generate_password_hash
+
 
 def seed_database():
-    
+    existing_admin = User.query.filter_by(email="admin@example.com").first()
+    if not existing_admin:
+        admin_user = User(
+            username="admin",
+            email="admin@example.com",
+            password_hash=generate_password_hash("admin123"),
+            role="admin"
+        )
+        db.session.add(admin_user)
+        db.session.commit()
+        print("✅ Admin user created.")
+
+    else:
+        print("⚠️ Admin already exists.")
+
     Lesson.query.delete()
     db.session.commit()
 
-    
     consonants = [
-        ("B", "B"),
-        ("C", "C"),
-        ("D", "D"),
-        ("F", "F"),
-        ("G", "G"),
-        ("H", "H"),
-        ("J", "J"),
-        ("K", "K"),
-        ("L", "L"),
-        ("M", "M"),
-        ("N", "N"),
-        ("P", "P"),
-        ("R", "R"),
-        ("S", "S"),
-        ("T", "T"),
-        ("V", "V"),
-        ("W", "W"),
-        ("Y", "Y"),
-        ("Z", "Z")
+        ("B", "B"), ("C", "C"), ("D", "D"), ("F", "F"), ("G", "G"),
+        ("H", "H"), ("J", "J"), ("K", "K"), ("L", "L"), ("M", "M"),
+        ("N", "N"), ("P", "P"), ("R", "R"), ("S", "S"), ("T", "T"),
+        ("V", "V"), ("W", "W"), ("Y", "Y"), ("Z", "Z")
     ]
 
-    vowels = [
-        ("A", "A"),
-        ("E", "E"),
-        ("I", "I"),
-        ("O", "O"),
-        ("U", "U")
-    ]
+    vowels = [("A", "A"), ("E", "E"), ("I", "I"), ("O", "O"), ("U", "U")]
 
-    
     for letter, content in consonants:
-        lesson = Lesson(
-            title=letter,
-            content=content,
-            category="Alphabets"
-        )
+        lesson = Lesson(title=letter, content=content, category="Alphabets")
         db.session.add(lesson)
 
-    
     for letter, content in vowels:
-        lesson = Lesson(
-            title=letter,
-            content=content,
-            category="Vowels"
-        )
+        lesson = Lesson(title=letter, content=content, category="Vowels")
         db.session.add(lesson)
 
-    
     body_parts = [
-        ("Head", "kichwa"),
-        ("Hand", "mkono"),
-        ("Foot", "mguu"),
-        ("Eye", "jicho"),
-        ("Ear", "sikio"),
-        ("Nose", "pua"),
-        ("Mouth", "kinywa"),
-        ("Hair", "nywele"),
-        ("Teeth", "meno"),
-        ("Tongue", "ulimi"),
-        ("Neck", "shingo"),
-        ("Shoulder", "bega"),
-        ("Chest", "kifua"),
-        ("Elbow", "kiwiko"),
-        ("Fingers", "vidole"),
-        ("Stomach", "tumbo"),
-        ("Knee", "goti"),
-        ("Leg", "mguu"),
-        ("Face", "uso"),
-        ("Lips", "midomo")
+        ("Head", "kichwa"), ("Hand", "mkono"), ("Foot", "mguu"), ("Eye", "jicho"),
+        ("Ear", "sikio"), ("Nose", "pua"), ("Mouth", "kinywa"), ("Hair", "nywele"),
+        ("Teeth", "meno"), ("Tongue", "ulimi"), ("Neck", "shingo"), ("Shoulder", "bega"),
+        ("Chest", "kifua"), ("Elbow", "kiwiko"), ("Fingers", "vidole"), ("Stomach", "tumbo"),
+        ("Knee", "goti"), ("Leg", "mguu"), ("Face", "uso"), ("Lips", "midomo")
     ]
 
     colors = [
-        ("Red", "nyekundu"),
-        ("Blue", "bluu"),
-        ("Green", "kijani"),
-        ("Yellow", "manjano"),
-        ("Black", "nyeusi"),
-        ("White", "nyeupe"),
-        ("Brown", "kahawia"),
-        ("Purple", "zambarau"),
-        ("Pink", "waridi"),
-        ("Orange", "machungwa"),
-        ("Gray", "kijivu"),
-        ("Light Blue", "bluu ya mwanga"),
-        ("Dark Blue", "bluu ya giza"),
-        ("Dark Green", "kijani cha giza"),
-        ("Light Green", "kijani kibichi"),
-        ("Cream", "krimu"),
-        ("Maroon", "maruni"),
-        ("Gold", "dhahabu"),
-        ("Silver", "fedha"),
-        ("Color", "rangi")
+        ("Red", "nyekundu"), ("Blue", "bluu"), ("Green", "kijani"), ("Yellow", "manjano"),
+        ("Black", "nyeusi"), ("White", "nyeupe"), ("Brown", "kahawia"), ("Purple", "zambarau"),
+        ("Pink", "waridi"), ("Orange", "machungwa"), ("Gray", "kijivu"),
+        ("Light Blue", "bluu ya mwanga"), ("Dark Blue", "bluu ya giza"),
+        ("Dark Green", "kijani cha giza"), ("Light Green", "kijani kibichi"),
+        ("Cream", "krimu"), ("Maroon", "maruni"), ("Gold", "dhahabu"),
+        ("Silver", "fedha"), ("Color", "rangi")
     ]
 
     food = [
-        ("Rice", "mchele"),
-        ("Bread", "mkate"),
-        ("Meat", "nyama"),
-        ("Fish", "samaki"),
-        ("Chicken", "kuku"),
-        ("Milk", "maziwa"),
-        ("Water", "maji"),
-        ("Tea", "chai"),
-        ("Salt", "chumvi"),
-        ("Sugar", "sukari"),
-        ("Beans", "maharagwe"),
-        ("Corn", "mahindi"),
-        ("Ugali", "ugali"),
-        ("Chapati", "chapati"),
-        ("Banana", "ndizi"),
-        ("Mango", "embe"),
-        ("Orange", "chungwa"),
-        ("Pineapple", "nanasi"),
-        ("Potato", "viazi"),
+        ("Rice", "mchele"), ("Bread", "mkate"), ("Meat", "nyama"), ("Fish", "samaki"),
+        ("Chicken", "kuku"), ("Milk", "maziwa"), ("Water", "maji"), ("Tea", "chai"),
+        ("Salt", "chumvi"), ("Sugar", "sukari"), ("Beans", "maharagwe"), ("Corn", "mahindi"),
+        ("Ugali", "ugali"), ("Chapati", "chapati"), ("Banana", "ndizi"), ("Mango", "embe"),
+        ("Orange", "chungwa"), ("Pineapple", "nanasi"), ("Potato", "viazi"),
         ("Sweet Potato", "viazi vitamu")
     ]
 
     family = [
-        ("Mother", "mama"),
-        ("Father", "baba"),
-        ("Sister", "dada"),
-        ("Brother", "kaka"),
-        ("Grandmother", "bibi"),
-        ("Grandfather", "babu"),
-        ("Aunt", "shangazi"),
-        ("Uncle", "mjomba"),
-        ("Cousin", "binamu"),
-        ("Baby", "mtoto"),
-        ("Child", "mwana"),
-        ("Daughter", "binti"),
-        ("Parent", "mzazi"),
-        ("Sibling", "ndugu"),
-        ("Wife", "mke"),
-        ("Husband", "mume"),
-        ("Step-mother", "mama wa kambo"),
-        ("Step-father", "baba wa kambo"),
-        ("Family", "familia"),
-        ("Relative", "jamaa")
+        ("Mother", "mama"), ("Father", "baba"), ("Sister", "dada"), ("Brother", "kaka"),
+        ("Grandmother", "bibi"), ("Grandfather", "babu"), ("Aunt", "shangazi"), ("Uncle", "mjomba"),
+        ("Cousin", "binamu"), ("Baby", "mtoto"), ("Child", "mwana"), ("Daughter", "binti"),
+        ("Parent", "mzazi"), ("Sibling", "ndugu"), ("Wife", "mke"), ("Husband", "mume"),
+        ("Step-mother", "mama wa kambo"), ("Step-father", "baba wa kambo"),
+        ("Family", "familia"), ("Relative", "jamaa")
     ]
 
     animals = [
-        ("Dog", "mbwa"),
-        ("Cat", "paka"),
-        ("Cow", "ng'ombe"),
-        ("Sheep", "kondoo"),
-        ("Chicken", "kuku"),
-        ("Goat", "mbuzi"),
-        ("Duck", "bata"),
-        ("Horse", "farasi"),
-        ("Donkey", "punda"),
-        ("Elephant", "tembo"),
-        ("Lion", "simba"),
-        ("Leopard", "chui"),
-        ("Giraffe", "twiga"),
-        ("Crocodile", "mamba"),
-        ("Monkey", "tumbili"),
-        ("Zebra", "punda milia"),
-        ("Fish", "samaki"),
-        ("Buffalo", "nyati"),
-        ("Bird", "ndege"),
-        ("Bee", "nyuki")
+        ("Dog", "mbwa"), ("Cat", "paka"), ("Cow", "ng'ombe"), ("Sheep", "kondoo"),
+        ("Chicken", "kuku"), ("Goat", "mbuzi"), ("Duck", "bata"), ("Horse", "farasi"),
+        ("Donkey", "punda"), ("Elephant", "tembo"), ("Lion", "simba"), ("Leopard", "chui"),
+        ("Giraffe", "twiga"), ("Crocodile", "mamba"), ("Monkey", "tumbili"),
+        ("Zebra", "punda milia"), ("Fish", "samaki"), ("Buffalo", "nyati"),
+        ("Bird", "ndege"), ("Bee", "nyuki")
     ]
 
-    
     words_data = []
-    
-    
+
     for english, swahili in body_parts:
-        words_data.append({
-            "title": english,
-            "content": swahili,
-            "category": "Body",
-            "image_url": f"images/body/{swahili}.jpeg"
-        })
-    
-    
+        words_data.append({"title": english, "content": swahili, "category": "Body", "image_url": f"images/body/{swahili}.jpeg"})
+
     for english, swahili in colors:
-        words_data.append({
-            "title": english,
-            "content": swahili,
-            "category": "Colors",
-            "image_url": f"images/colors/{swahili}.jpeg"
-        })
-    
-    
+        words_data.append({"title": english, "content": swahili, "category": "Colors", "image_url": f"images/colors/{swahili}.jpeg"})
+
     for english, swahili in food:
-        words_data.append({
-            "title": english,
-            "content": swahili,
-            "category": "Food",
-            "image_url": f"images/food/{swahili}.jpeg"
-        })
-    
-    
+        words_data.append({"title": english, "content": swahili, "category": "Food", "image_url": f"images/food/{swahili}.jpeg"})
+
     for english, swahili in family:
-        words_data.append({
-            "title": english,
-            "content": swahili,
-            "category": "Family",
-            "image_url": f"images/family/{swahili}.jpeg"
-        })
+        words_data.append({"title": english, "content": swahili, "category": "Family", "image_url": f"images/family/{swahili}.jpeg"})
 
-   
     for english, swahili in animals:
-        words_data.append({
-            "title": english,
-            "content": swahili,
-            "category": "Animals",
-            "image_url": f"images/animals/{swahili}.jpeg"
-        })
+        words_data.append({"title": english, "content": swahili, "category": "Animals", "image_url": f"images/animals/{swahili}.jpeg"})
 
-    
     for word in words_data:
         lesson = Lesson(
             title=word["title"],
@@ -229,8 +109,7 @@ def seed_database():
             image_url=word["image_url"]
         )
         db.session.add(lesson)
-  
-    # Basic sentences
+
     basic_sentences = [
         ("Hello, how are you?", "Hujambo, habari yako?"),
         ("I am fine, thank you", "Nzuri, asante"),
@@ -254,57 +133,25 @@ def seed_database():
         ("Goodbye", "Kwaheri")
     ]
 
-    
     for english, swahili in basic_sentences:
-           lesson = Lesson(
+        audio_filename = english.lower().replace(' ', '_').replace('?', '').replace(',', '').strip()
+        lesson = Lesson(
             title=english,
             category="Basic",
             content=swahili,
-            audio_url=f"audio/basic/{english.lower().replace(' ', '_')}.mp3"
+            audio_url=f"audio/basic/{audio_filename}.mp3"
         )
         db.session.add(lesson)
 
     game_questions = [
-        {
-            "question": "Cha___la (Hint: Food)",
-            "correct_answer": "k",
-            "options": ["p", "m", "k", "b"]
-        },
-        {
-            "question": "Suka___ (Hint: Sugar)",
-            "correct_answer": "ri",
-            "options": ["ra", "re", "ri", "ro"]
-        },
-        {
-            "question": "Ng'o___be (Hint: Cow)",
-            "correct_answer": "m",
-            "options": ["m", "n", "b", "l"]
-        },
-        {
-            "question": "Ki___wa (Hint: Thing)",
-            "correct_answer": "tu",
-            "options": ["tu", "fu", "bo", "no"]
-        },
-        {
-            "question": "Ma___ (Hint: Water)",
-            "correct_answer": "ji",
-            "options": ["ji", "zi", "le", "ya"]
-        },
-        {
-            "question": "Sa___ki (Hint: Fish)",
-            "correct_answer": "ma",
-            "options": ["na", "ma", "ra", "ta"]
-        },
-        {
-            "question": "Ch___ (Hint: Tea)",
-            "correct_answer": "ai",
-            "options": ["ai", "ua", "ia", "oa"]
-        },
-        {
-            "question": "Mdo___ (Hint: Mouth)",
-            "correct_answer": "mo",
-            "options": ["mo", "lo", "ro", "to"]
-        },
+        {"question": "Cha___la (Hint: Food)", "correct_answer": "k", "options": ["p", "m", "k", "b"]},
+        {"question": "Suka___ (Hint: Sugar)", "correct_answer": "ri", "options": ["ra", "re", "ri", "ro"]},
+        {"question": "Ng'o___be (Hint: Cow)", "correct_answer": "m", "options": ["m", "n", "b", "l"]},
+        {"question": "Ki___wa (Hint: Thing)", "correct_answer": "tu", "options": ["tu", "fu", "bo", "no"]},
+        {"question": "Ma___ (Hint: Water)", "correct_answer": "ji", "options": ["ji", "zi", "le", "ya"]},
+        {"question": "Sa___ki (Hint: Fish)", "correct_answer": "ma", "options": ["na", "ma", "ra", "ta"]},
+        {"question": "Ch___ (Hint: Tea)", "correct_answer": "ai", "options": ["ai", "ua", "ia", "oa"]},
+        {"question": "Mdo___ (Hint: Mouth)", "correct_answer": "mo", "options": ["mo", "lo", "ro", "to"]},
     ]
 
     for q in game_questions:
@@ -315,8 +162,6 @@ def seed_database():
             options=q["options"]
         )
         db.session.add(game)
-
-
 
     db.session.commit()
     print("Database seeded successfully!")
