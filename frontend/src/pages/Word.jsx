@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState,useContext } from "react"
+import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 import "../styles/Word.css";
 
 function Word() {
     const [words, setWords] = useState({});
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         fetch("http://localhost:5000/api/lessons/words/all")
@@ -27,7 +30,7 @@ function Word() {
   
     const categoryList = Object.keys(words).filter(category => category !== "Basic");
 
-    // If no category is selected, default to the first non-Basic category
+    
     useEffect(() => {
         if (!selectedCategory && categoryList.length > 0) {
             setSelectedCategory(categoryList[0]);
@@ -36,6 +39,25 @@ function Word() {
 
     if (loading) return <p>Loading....</p>;
  if (!Object.keys(words).length) return <p>No words found.</p>;
+
+
+    async function handleAudioPlay(wordId) {
+        const audio = new Audio(`http://localhost:5000/api/lesson/audio/${wordId}`);
+        audio.play().catch((err) => console.error("Error playing audio:", err));
+
+      const res = await fetch('http://localhost:5000/api/progress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },  
+                body: JSON.stringify({ lesson_id: wordId, user_id: user.user_id }),
+                credentials: 'include',
+            });
+            if (!res.ok) {
+                throw new Error('Failed to update progress');
+            }
+            console.log('Progress updated successfully')
+    }
 
     return (
      <div className="word-page">
@@ -68,7 +90,7 @@ function Word() {
                                     alt={word.content}
                                     className="word-image"
                                     onError={(e) => {
-                                        // Try different extensions in order: jpg -> jpeg -> png
+                                     
                                         if (e.target.src.endsWith('.jpg')) {
                                             e.target.src = e.target.src.replace('.jpg', '.jpeg');
                                         } else if (e.target.src.endsWith('.jpeg')) {
@@ -83,7 +105,7 @@ function Word() {
                                     <div className="word-title">{word.content}</div>
                                     <button
                                         className="audio-button"
-                                        onClick={() => new Audio(`http://localhost:5000/api/lesson/audio/${word.id}`).play()}
+                                        onClick={() => handleAudioPlay(word.id)}
                                     >
                                         🔊
                                     </button>

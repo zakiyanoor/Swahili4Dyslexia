@@ -1,23 +1,21 @@
-/* src/styles/global.css */
 
-/* CSS Variables (driven by Settings) */
 :root {
-    /* Typography */
-    --app-base-font-size: 16px;    /* Text Size slider */
-    --app-font-weight: 400;        /* Text Weight slider */
-    --app-line-height: 1.5;        /* Line Height slider */
-    --app-letter-spacing: 0.05em;  /* Letter Spacing slider */
-    --app-word-spacing: normal;     /* Increased Word Spacing toggle */
+    
+    --app-base-font-size: 16px;  
+    --app-font-weight: 400;      
+    --app-line-height: 1.5;      
+    --app-letter-spacing: 0.05em;  
+    --app-word-spacing: normal;     
     --app-font-family: "Segoe UI", Arial, sans-serif;
   
-    /* Theme Colors */
+  
     --background-color: #fefefe;
     --text-color: #111;
     --link-color: #00A77F;
     --section-bg-color: #ffffff;
   }
   
-  /* Apply variables globally */
+
   html {
     font-size: var(--app-base-font-size);
     font-family: var(--app-font-family);
@@ -36,7 +34,7 @@
     font-family: var(--app-font-family);
   }
   
-  /* High Contrast Theme Overrides */
+  
   .high-contrast {
     --background-color: #121212;
     --text-color: #f1f1f1;
@@ -44,7 +42,7 @@
     --section-bg-color: #1e1e1e;
   }
   
-  /* Dyslexic Font Override */
+
   .dyslexic-font {
     --app-font-family: 'OpenDyslexic', sans-serif;
   }
@@ -54,5 +52,5 @@
     font-family: 'OpenDyslexic', sans-serif !important;
   }
   
-  /* You can import additional global styles here (e.g., reset.css) */
+
   

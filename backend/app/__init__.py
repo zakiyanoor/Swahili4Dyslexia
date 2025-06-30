@@ -1,4 +1,4 @@
-# __init__.py
+
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -23,8 +23,8 @@ socketio = SocketIO(
 
 def create_app():
     app = Flask(__name__, static_folder='static', static_url_path='/static')
-    CORS(app, supports_credentials=True,origins=["http://localhost:5173"])
-
+    # CORS(app, supports_credentials=True, origins=["http://localhost:5173", "http://localhost:3000", "http://localhost:5000"])
+    CORS(app, supports_credentials=True, origins=["http://localhost:5173"], methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], allow_headers="*")
     
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -34,6 +34,8 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     Session(app)
+    # with app.app_context():
+    #     db.create_all()
 
    
     from app.routes import register_routes

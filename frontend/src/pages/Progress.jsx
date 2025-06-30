@@ -1,56 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import '../styles/Progress.css';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 function Progress() {
-    
-    const userData = {
-        name: 'John Doe',
-        role: 'Beginner',
-        avatarInitial: 'JD',
-        overallProgress: 65,
-        vocabularyProgress: 80,
-        gamesProgress: 55,
-        badges: [
-            { id: 1, icon: '⭐', title: 'Starter' },
-            { id: 2, icon: '📚', title: '100 Words' },
-            { id: 3, icon: '🎮', title: 'First Game' },
-        ],
-        recentActivities: [
-            {
-                id: 1,
-                title: 'Completed Lesson 10',
-                date: 'May 28, 2025',
-                score: '95%',
-            },
-            {
-                id: 2,
-                title: 'Vocabulary Quiz',
-                date: 'May 27, 2025',
-                score: '85%',
-            },
-            {
-                id: 3,
-                title: 'Game: Word Match',
-                date: 'May 26, 2025',
-                score: '75%',
-            },
-        ],
-    };
+    const { user } = useContext(AuthContext);
+    const [progressData, setProgressData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchProgress = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/progress/summary/${user.user_id}`, {
+                    credentials: 'include',
+                });
+                if (!res.ok) throw new Error('Failed to fetch progress');
+                const data = await res.json();
+                setProgressData(data);
+            } catch (err) {
+                console.error('Error fetching progress:', err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProgress();
+    }, [user.user_id]);
+
+    if (loading) return <div className="loading">Loading progress...</div>;
+    if (error) return <div className="error">Error: {error}</div>;
 
     return (
         <div className="progress-page">
-            {}
             <div className="sidebar">
                 <div className="user-profile">
-                    <div className="user-avatar">{userData.avatarInitial}</div>
-                    <h2 className="user-name">{userData.name}</h2>
-                    <span className="user-role">{userData.role}</span>
+                    <div className="user-avatar">{user.user_name?.slice(0, 2).toUpperCase()}</div>
+                    <h2 className="user-name">{user.user_name}</h2>
+                    <span className="user-role">Beginner</span>
                     <a href="#" className="edit-profile">Edit Profile</a>
                 </div>
             </div>
 
-            {}
             <div className="main-content">
                 <div className="progress-header">
                     <h1>My Progress</h1>
@@ -58,39 +50,45 @@ function Progress() {
 
                 <div className="progress-section">
                     <h2>Overall Progress</h2>
-                    <div className="progress-label">{userData.overallProgress}% Complete</div>
+                    <div className="progress-label">{progressData.overallProgress}% Complete</div>
                     <div className="progress-bar">
-                        <div className="progress-bar-fill" style={{ width: `${userData.overallProgress}%` }}></div>
+                        <div className="progress-bar-fill" style={{ width: `${progressData.overallProgress}%` }}></div>
                     </div>
                 </div>
 
                 <div className="progress-section">
                     <h2>Learning Stats</h2>
+
                     <div className="progress-label">Vocabulary Learned</div>
                     <div className="progress-bar">
-                        <div className="progress-bar-fill" style={{ width: `${userData.vocabularyProgress}%` }}></div>
+                        <div className="progress-bar-fill" style={{ width: `${progressData.vocabularyProgress}%` }}></div>
                     </div>
 
-                    <div className="progress-label" style={{ marginTop: '1.5rem' }}>Games Completed</div>
+                    <div className="progress-label" style={{ marginTop: '1.5rem' }}>Sentences Completed</div>
                     <div className="progress-bar">
-                        <div className="progress-bar-fill" style={{ width: `${userData.gamesProgress}%` }}></div>
+                        <div className="progress-bar-fill" style={{ width: `${progressData.sentenceProgress}%` }}></div>
                     </div>
                 </div>
 
+
                 <div className="badges-section">
                     <h2>Achievements</h2>
-                    {userData.badges.map((badge) => (
-                        <div key={badge.id} className="badge">
-                            <div className="badge-icon">{badge.icon}</div>
-                            <span>{badge.title}</span>
-                        </div>
-                    ))}
+                    {progressData.badges.length === 0 ? (
+                        <p>No badges earned yet.</p>
+                    ) : (
+                        progressData.badges.map((badge) => (
+                            <div key={badge.id} className="badge">
+                                <div className="badge-icon">{badge.icon}</div>
+                                <span>{badge.title}</span>
+                            </div>
+                        ))
+                    )}
                 </div>
 
                 <div className="progress-section">
                     <h2>Recent Activities</h2>
                     <ul className="activity-list">
-                        {userData.recentActivities.map((activity) => (
+                        {progressData.recentActivities.map((activity) => (
                             <li key={activity.id} className="activity-item">
                                 <div>
                                     <h3>{activity.title}</h3>

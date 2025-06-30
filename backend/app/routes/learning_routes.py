@@ -4,8 +4,10 @@ from app.models.models import Lesson
 from app import db
 from gtts import gTTS
 from io import BytesIO
+from flask_cors import CORS
 
 learning_bp = Blueprint('learning_bp', __name__)
+CORS(learning_bp, supports_credentials=True, origins=["http://localhost:5173"])
 
 @learning_bp.route('/lessons/<category>', methods=['GET'])
 def get_lessons(category):

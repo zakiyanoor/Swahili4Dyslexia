@@ -1,4 +1,4 @@
-// src/components/Navigation.jsx
+
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ function Navigation() {
 
   const handleLogout = async () => {
     try {
-      // Optional server sign-out
+      
       await axios.post(
         "http://localhost:5000/api/signout",
         {},
@@ -21,14 +21,14 @@ function Navigation() {
     } catch (err) {
       console.error("Logout failed:", err);
     }
-    // Clear client-side auth flags
+    
     localStorage.removeItem("token");
     localStorage.removeItem("isAuthenticated");
 
-    // Redirect to sign-in
+    
     navigate("/signin");
 
-    // Then reload the page to reset all state
+    
     window.location.reload();
   };
 

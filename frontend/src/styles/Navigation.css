@@ -54,7 +54,7 @@
     text-decoration: none;
   }
   
-/* Sign In button */
+
 .nav-actions .sign-in {
   background-color: var(--link-color);
   color: #fff;
@@ -66,10 +66,10 @@
   transition: background-color 0.2s ease;
 }
 .nav-actions .sign-in:hover {
-  background-color: #008f6a; /* a bit darker */
+  background-color: #008f6a; 
 }
 
-/* Sign Out button */
+
 .nav-actions .sign-out {
   background-color: #ff4444;
   color: #fff;
@@ -81,7 +81,7 @@
   transition: background-color 0.2s ease;
 }
 .nav-actions .sign-out:hover {
-  background-color: #cc0000; /* darker red */
+  background-color: #cc0000; 
 }
 
   
