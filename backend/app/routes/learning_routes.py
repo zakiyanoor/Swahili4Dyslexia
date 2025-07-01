@@ -5,6 +5,7 @@ from app import db
 from gtts import gTTS
 from io import BytesIO
 from flask_cors import CORS
+import os
 
 learning_bp = Blueprint('learning_bp', __name__)
 CORS(learning_bp, supports_credentials=True, origins=["http://localhost:5173"])
@@ -78,13 +79,28 @@ def delete_unwanted_letters():
 def get_words_grouped():
     lessons = Lesson.query.filter(~Lesson.category.in_(["Alphabets","Vowels"])).all()
     grouped = {}
+    static_img_dir = os.path.join(os.path.dirname(__file__), '../../app/static/images')
     for lesson in lessons:
-        if lesson.category not in grouped:
-            grouped[lesson.category] = []
-        grouped[lesson.category].append({
+        category = lesson.category.lower()
+        if category == 'food':
+            category = 'fruits'
+        if category not in grouped:
+            grouped[category] = []
+        img_name = lesson.content.lower().replace(' ', '_')
+        category_dir = os.path.join(static_img_dir, category)
+        found = False
+        for ext in ['.png', '.jpg', '.jpeg']:
+            img_path = os.path.join(category_dir, f"{img_name}{ext}")
+            if os.path.isfile(img_path):
+                image_url = f"{category}/{img_name}{ext}"
+                found = True
+                break
+        if not found:
+            image_url = "placeholder.png"
+        grouped[category].append({
             "id": lesson.id,
             "content": lesson.content,
-            "image_url": lesson.image_url,
+            "image_url": image_url,
             "audio_url": f"lesson/audio/{lesson.id}"
         })
     return jsonify(grouped)

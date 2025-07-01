@@ -36,7 +36,7 @@ def generate_all_placeholders():
                   'zambarau', 'pink', 'kahawia', 'kijivu', 'bluu ya mwanga', 'bluu ya giza', 
                   'kijani cha giza', 'kijani kibichi', 'krimu', 'maruni', 'dhahabu', 'fedha', 
                   'rangi'],
-        'food': ['wali', 'maharagwe', 'mahindi', 'ugali', 'chapati', 'mkate', 'nyama', 'kuku', 
+        'fruits': ['wali', 'maharagwe', 'mahindi', 'ugali', 'chapati', 'mkate', 'nyama', 'kuku', 
                 'samaki', 'maziwa', 'maji', 'chai', 'ndizi', 'embe', 'chungwa', 'nanasi', 
                 'viazi', 'viazi vitamu', 'sukari', 'chumvi'],
         'family': ['mama', 'baba', 'kaka', 'dada', 'mtoto', 'mwana', 'binti', 'babu', 'bibi', 
