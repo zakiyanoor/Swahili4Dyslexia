@@ -40,39 +40,82 @@ def seed_database():
         db.session.add(lesson)
 
     body_parts = [
-        ("Head", "kichwa"), ("Hand", "mkono"), ("Foot", "mguu"), ("Eye", "jicho"),
-        ("Ear", "sikio"), ("Nose", "pua"), ("Mouth", "kinywa"), ("Hair", "nywele"),
-        ("Teeth", "meno"), ("Tongue", "ulimi"), ("Neck", "shingo"), ("Shoulder", "bega"),
-        ("Chest", "kifua"), ("Elbow", "kiwiko"), ("Fingers", "vidole"), ("Stomach", "tumbo"),
-        ("Knee", "goti"), ("Leg", "mguu"), ("Face", "uso"), ("Lips", "midomo")
+    ("Hair", "nywele"),
+    ("Head", "kichwa"),
+    ("Face", "uso"),
+    ("Eye", "jicho"),
+    ("Eyebrow", "nyusi"),
+    ("Eyelash", "kope"),
+    ("Ear", "sikio"),
+    ("Nose", "pua"),
+    ("Mouth", "kinywa"),
+    ("Lips", "midomo"),
+    ("Teeth", "meno"),
+    ("Tongue", "ulimi"),
+    ("Neck", "shingo"),
+    ("Shoulder", "bega"),
+    ("Chest", "kifua"),
+    ("Elbow", "kiwiko"),
+    ("Arm/Hand", "mkono"),
+    ("Fingers", "vidole"),
+    ("Stomach", "tumbo"),
+    ("Knee", "goti"),
+    ("Leg", "mguu"),
+    ("Foot", "mguu")
     ]
 
     colors = [
-        ("Red", "nyekundu"), ("Blue", "bluu"), ("Green", "kijani"), ("Yellow", "manjano"),
-        ("Black", "nyeusi"), ("White", "nyeupe"), ("Brown", "kahawia"), ("Purple", "zambarau"),
-        ("Pink", "waridi"), ("Orange", "machungwa"), ("Gray", "kijivu"),
-        ("Light Blue", "bluu ya mwanga"), ("Dark Blue", "bluu ya giza"),
-        ("Dark Green", "kijani cha giza"), ("Light Green", "kijani kibichi"),
-        ("Cream", "krimu"), ("Maroon", "maruni"), ("Gold", "dhahabu"),
-        ("Silver", "fedha"), ("Color", "rangi")
+    ("Black", "nyeusi"),
+    ("Blue", "bluu"),
+    ("Brown", "kahawia"),
+    ("Gold", "dhahabu"),
+    ("Green", "kijani"),
+    ("Grey", "kijivu"),
+    ("Lilac", "zambarau ya waridi"),
+    ("Navy Blue", "bluu ya giza"),
+    ("Yellow", "manjano"),
+    ("Orange", "machungwa"),
+    ("Pink", "waridi"),
+    ("Purple", "zambarau"),
+    ("Red", "nyekundu"),
+    ("Silver", "fedha"),
+    ("Sky Blue", "bluu ya mwanga"),
+    ("White", "nyeupe")
     ]
 
-    food = [
-        ("Rice", "mchele"), ("Bread", "mkate"), ("Meat", "nyama"), ("Fish", "samaki"),
-        ("Chicken", "kuku"), ("Milk", "maziwa"), ("Water", "maji"), ("Tea", "chai"),
-        ("Salt", "chumvi"), ("Sugar", "sukari"), ("Beans", "maharagwe"), ("Corn", "mahindi"),
-        ("Ugali", "ugali"), ("Chapati", "chapati"), ("Banana", "ndizi"), ("Mango", "embe"),
-        ("Orange", "chungwa"), ("Pineapple", "nanasi"), ("Potato", "viazi"),
-        ("Sweet Potato", "viazi vitamu")
+    fruits = [
+    ("Apple", "tofaa"),
+    ("Banana", "ndizi"),
+    ("Orange", "chungwa"),
+    ("Pineapple", "nanasi"),
+    ("Mango", "embe"),
+    ("Grapes", "zabibu"),
+    ("Papaya", "papai"),
+    ("Watermelon", "tikiti maji"),
+    ("Lemon", "limau"),
+    ("Avocado", "parachichi"),
+    ("Strawberry", "stroberi"),
+    ("Pear", "pea"),
+    ("Peach", "pichi"),
+    ("Plum", "plamu"),
+    ("Kiwi", "kiwi"),
+    ("Coconut", "nazi"),
     ]
 
     family = [
-        ("Mother", "mama"), ("Father", "baba"), ("Sister", "dada"), ("Brother", "kaka"),
-        ("Grandmother", "bibi"), ("Grandfather", "babu"), ("Aunt", "shangazi"), ("Uncle", "mjomba"),
-        ("Cousin", "binamu"), ("Baby", "mtoto"), ("Child", "mwana"), ("Daughter", "binti"),
-        ("Parent", "mzazi"), ("Sibling", "ndugu"), ("Wife", "mke"), ("Husband", "mume"),
-        ("Step-mother", "mama wa kambo"), ("Step-father", "baba wa kambo"),
-        ("Family", "familia"), ("Relative", "jamaa")
+        ("Mother", "mama"), 
+        ("Father", "baba"), 
+        ("Sister", "dada"), 
+        ("Brother", "kaka"),
+        ("Grandmother", "bibi"), 
+        ("Grandfather", "babu"), 
+        ("Aunt", "shangazi"), 
+        ("Uncle", "mjomba"),
+        ("Cousin", "binamu"),
+        ("Wife", "mke"), 
+        ("Husband", "mume"),
+        ("Family", "familia"),
+        ("Relative", "jamaa")
     ]
 
     animals = [
@@ -84,6 +127,20 @@ def seed_database():
         ("Bird", "ndege"), ("Bee", "nyuki")
     ]
 
+    shapes = [
+    ("Triangle", "pembetatu"),
+    ("Circle", "duara"),
+    ("Crescent", "hilali"),
+    ("Diamond", "almasi"),
+    ("Hexagon", "hexagoni"),
+    ("Oval", "mviringo"),
+    ("Pentagon", "pentagoni"),
+    ("Rectangle", "mstatili"),
+    ("Square", "mraba"),
+    ("Star", "nyota")
+    ]
+
+
     words_data = []
 
     for english, swahili in body_parts:
@@ -92,14 +149,17 @@ def seed_database():
     for english, swahili in colors:
         words_data.append({"title": english, "content": swahili, "category": "Colors", "image_url": f"images/colors/{swahili}.jpeg"})
 
-    for english, swahili in food:
-        words_data.append({"title": english, "content": swahili, "category": "Food", "image_url": f"images/food/{swahili}.jpeg"})
+    for english, swahili in fruits:
+        words_data.append({"title": english, "content": swahili, "category": "Fruits", "image_url": f"images/fruits/{swahili}.jpeg"})
 
     for english, swahili in family:
         words_data.append({"title": english, "content": swahili, "category": "Family", "image_url": f"images/family/{swahili}.jpeg"})
 
     for english, swahili in animals:
         words_data.append({"title": english, "content": swahili, "category": "Animals", "image_url": f"images/animals/{swahili}.jpeg"})
+
+    for english, swahili in shapes:
+        words_data.append({"title": english, "content": swahili, "category": "Shapes", "image_url": f"images/shapes/{swahili}.jpeg"})
 
     for word in words_data:
         lesson = Lesson(
@@ -137,14 +197,14 @@ def seed_database():
         audio_filename = english.lower().replace(' ', '_').replace('?', '').replace(',', '').strip()
         lesson = Lesson(
             title=english,
-            category="Basic",
+            category="Sentences",
             content=swahili,
             audio_url=f"audio/basic/{audio_filename}.mp3"
         )
         db.session.add(lesson)
 
     game_questions = [
-        {"question": "Cha___la (Hint: Food)", "correct_answer": "k", "options": ["p", "m", "k", "b"]},
+        {"question": "Cha___la (Hint: Fruits)", "correct_answer": "k", "options": ["p", "m", "k", "b"]},
         {"question": "Suka___ (Hint: Sugar)", "correct_answer": "ri", "options": ["ra", "re", "ri", "ro"]},
         {"question": "Ng'o___be (Hint: Cow)", "correct_answer": "m", "options": ["m", "n", "b", "l"]},
         {"question": "Ki___wa (Hint: Thing)", "correct_answer": "tu", "options": ["tu", "fu", "bo", "no"]},

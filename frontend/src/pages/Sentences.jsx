@@ -11,7 +11,7 @@ const Sentences = () => {
     useEffect(() => {
         const fetchSentences = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/lessons/Basic');
+                const response = await fetch('http://localhost:5000/api/lessons/Sentences');
                 const data = await response.json();
                 setSentences({ 'Basic': data });
                 setSelectedCategory('Basic');
