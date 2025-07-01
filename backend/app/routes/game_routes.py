@@ -1,5 +1,4 @@
-from flask import Blueprint
-from flask_cors import CORS
+from flask import Blueprint, request
 from app.controllers.gamecontroller import (
     get_random_game_questions as handle_get_questions,
     submit_game_answer as handle_submit_answer
@@ -7,13 +6,10 @@ from app.controllers.gamecontroller import (
 
 game_bp = Blueprint("game", __name__)
 
-
-CORS(game_bp, supports_credentials=True, origins=["http://localhost:5173"])
-
-@game_bp.route("/game/questions", methods=["GET", "OPTIONS"])
+@game_bp.route("/game/questions", methods=["GET"])
 def get_questions_route():
     return handle_get_questions()
 
-@game_bp.route("/game/submit", methods=["POST", "OPTIONS"])
+@game_bp.route("/game/submit", methods=["POST"])
 def submit_answer_route():
     return handle_submit_answer()

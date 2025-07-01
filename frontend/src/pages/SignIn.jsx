@@ -11,7 +11,7 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { setIsAuth, setUser } = useContext(AuthContext);
+  const { isAuth, setIsAuth, setUser } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -71,8 +71,16 @@ function SignIn() {
       alert('Google login failed.');
     }
   };
+  if(isAuth){
+    return(
+      <div>
+        <h2>You are already signed in!</h2>
+      </div>
+    )
+  }
 
   return (
+    
     <GoogleOAuthProvider clientId="1043787163792-ta7a54gkrv3ooj3rarj7ktgi7peijb5b.apps.googleusercontent.com">
       <div className="auth-container">
         <h2>Sign In</h2>
