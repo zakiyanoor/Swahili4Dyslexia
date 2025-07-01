@@ -38,8 +38,8 @@ function Progress() {
                 <div className="user-profile">
                     <div className="user-avatar">{user.user_name?.slice(0, 2).toUpperCase()}</div>
                     <h2 className="user-name">{user.user_name}</h2>
-                    <span className="user-role">Beginner</span>
-                    <a href="#" className="edit-profile">Edit Profile</a>
+                    {/* <span className="user-role">Beginner</span> */}
+                    {/* <a href="#" className="edit-profile">Edit Profile</a> */}
                 </div>
             </div>
 

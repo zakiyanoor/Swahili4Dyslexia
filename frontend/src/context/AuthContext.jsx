@@ -1,4 +1,4 @@
- import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:5000', {
@@ -20,14 +20,26 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    socket.emit('check_auth');
-    socket.on('auth_response', (data) => {
-      console.log(data.user);
-      setUser(data.user);
-      setIsAuth(data.isAuthenticated);
-    });
-
-    setIsLoading(false);
+    fetch('http://localhost:5000/api/auth/user', {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user) {
+          setUser(data.user);
+          setIsAuth(true);
+        } else {
+          setUser(null);
+          setIsAuth(false);
+        }
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setUser(null);
+        setIsAuth(false);
+        setIsLoading(false);
+      });
   }, []);
 
   return (

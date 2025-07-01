@@ -103,3 +103,18 @@ def check_auth():
 def signout():
     session.clear()
     return jsonify({"message":"Log out successful"})
+
+@auth_bp.route('/auth/user', methods=['GET'])
+def get_current_user():
+    user_session = session.get('user')
+    if not user_session or not user_session.get('user_id'):
+        return jsonify({'user': None}), 401
+    user = User.query.get(user_session['user_id'])
+    if not user:
+        return jsonify({'user': None}), 401
+    return jsonify({'user': {
+        'user_id': user.id,
+        'user_name': user.username,
+        'role': user.role,
+        'email': user.email
+    }})
